@@ -383,14 +383,6 @@ header {
   white-space: pre-line;
 }
 
-.reader-body p.subhead {
-  text-indent: 0;
-  font-weight: 600;
-  color: var(--accent);
-  margin-top: 1.6em;
-  margin-bottom: 0.6em;
-}
-
 .references {
   margin-top: 30px;
   padding: 24px 28px;
@@ -590,6 +582,9 @@ footer {
       <!-- Fullscreen Toggle -->
       <button class="icon-btn" onclick="toggleFullscreen()" id="fullscreenBtn" aria-label="फुल स्क्रीन" title="फुल स्क्रीन">⛶</button>
 
+      <!-- Force Page Refresh / Clear Cache -->
+      <button class="icon-btn" onclick="forceRefresh()" title="पेज रिफ्रेश करें">↻</button>
+
       <!-- Theme Toggle -->
       <button class="icon-btn" onclick="toggleTheme()" id="themeButton" aria-label="थीम बदलें" title="थीम बदलें">☾</button>
 
@@ -691,7 +686,7 @@ footer {
 </aside>
 
 <!-- LOAD ARTICLE DATA FIRST -->
-<script src="articles.js"></script>
+<script src="articles.js?v=2"></script>
 
 <script>
 // Application state
@@ -721,8 +716,14 @@ function toggleFullscreen() {
 
 document.addEventListener("fullscreenchange", () => {
   const btn = document.getElementById("fullscreenBtn");
-  btn.textContent = document.fullscreenElement ? "✕" : "⛶";
+  if (btn) btn.textContent = document.fullscreenElement ? "✕" : "⛶";
 });
+
+// Force Refresh (Bypass mobile browser cache to load new articles.js immediately)
+function forceRefresh() {
+  const cacheBuster = "?reload=" + new Date().getTime();
+  window.location.href = window.location.pathname + cacheBuster;
+}
 
 // PWA Manifest & Install Prompt
 (function setupPWA() {
@@ -748,12 +749,14 @@ document.addEventListener("fullscreenchange", () => {
   window.addEventListener("beforeinstallprompt", (e) => {
     e.preventDefault();
     deferredPrompt = e;
-    document.getElementById("installBtn").style.display = "inline-flex";
+    const btn = document.getElementById("installBtn");
+    if (btn) btn.style.display = "inline-flex";
   });
 
   window.addEventListener("appinstalled", () => {
     deferredPrompt = null;
-    document.getElementById("installBtn").style.display = "none";
+    const btn = document.getElementById("installBtn");
+    if (btn) btn.style.display = "none";
   });
 })();
 
@@ -762,7 +765,8 @@ async function installPWA() {
   deferredPrompt.prompt();
   await deferredPrompt.userChoice;
   deferredPrompt = null;
-  document.getElementById("installBtn").style.display = "none";
+  const btn = document.getElementById("installBtn");
+  if (btn) btn.style.display = "none";
 }
 
 // Theme settings
@@ -778,7 +782,8 @@ function toggleTheme() {
 (function() {
   const saved = localStorage.getItem("archive-theme") || "light";
   document.documentElement.setAttribute("data-theme", saved);
-  document.getElementById("themeButton").textContent = saved === "dark" ? "☀" : "☾";
+  const themeBtn = document.getElementById("themeButton");
+  if (themeBtn) themeBtn.textContent = saved === "dark" ? "☀" : "☾";
 })();
 
 // Detect Bangla script for proper font rendering
@@ -796,6 +801,7 @@ function getCategories() {
 // Render category filters
 function renderFilters() {
   const container = document.getElementById("filters");
+  if (!container) return;
   container.innerHTML = "";
 
   ["सभी", ...getCategories()].forEach(category => {
@@ -816,7 +822,9 @@ function renderFilters() {
 // Render article list
 function renderArticles() {
   const container = document.getElementById("articleList");
-  const query = document.getElementById("searchInput").value.trim().toLowerCase();
+  if (!container) return;
+  const searchInput = document.getElementById("searchInput");
+  const query = searchInput ? searchInput.value.trim().toLowerCase() : "";
 
   container.innerHTML = "";
 
@@ -897,7 +905,6 @@ function renderFormattedContent(container, rawText) {
     if (!trimmed) return;
 
     const p = document.createElement("p");
-    // Highlight multi-line verses/shlokas (ending with ।। or ॥)
     if (trimmed.includes("॥") || trimmed.includes("।।")) {
       p.className = "shloka";
     }
@@ -997,6 +1004,7 @@ function closeMenu() {
 // Render hamburger article directory
 function renderDrawer() {
   const container = document.getElementById("drawerArticles");
+  if (!container) return;
   container.innerHTML = "";
 
   database.forEach((article, index) => {
@@ -1022,8 +1030,11 @@ function renderDrawer() {
 }
 
 // Initialize application
-document.getElementById("totalArticles").textContent = database.length;
-document.getElementById("totalCategories").textContent = getCategories().length;
+const totalArtEl = document.getElementById("totalArticles");
+if (totalArtEl) totalArtEl.textContent = database.length;
+
+const totalCatEl = document.getElementById("totalCategories");
+if (totalCatEl) totalCatEl.textContent = getCategories().length;
 
 renderFilters();
 renderArticles();

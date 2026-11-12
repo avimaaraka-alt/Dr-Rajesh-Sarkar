@@ -1,0 +1,821 @@
+
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#f6f3ed">
+
+<title>डॉ. राजेश सरकार : समग्र लेख-संग्रह</title>
+
+<!-- Devanagari typography -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg: #f6f3ed;
+  --surface: #fffefa;
+  --surface2: #eee9df;
+  --text: #302d28;
+  --muted: #777168;
+  --accent: #80643d;
+  --border: #e3ddd2;
+  --shadow: 0 8px 30px rgba(50,40,25,.06);
+}
+
+[data-theme="dark"] {
+  --bg: #191a1c;
+  --surface: #222427;
+  --surface2: #2c2e32;
+  --text: #e9e5dc;
+  --muted: #aaa69e;
+  --accent: #d3b17b;
+  --border: #393b3e;
+  --shadow: 0 8px 30px rgba(0,0,0,.2);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Noto Serif Devanagari', serif;
+  line-height: 1.9;
+  transition: background .25s, color .25s;
+}
+
+button, input {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+
+.navbar {
+  max-width: 1100px;
+  margin: auto;
+  padding: 12px 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.nav-left, .nav-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand {
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+.icon-btn {
+  width: 42px;
+  height: 42px;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  color: var(--text);
+  background: var(--surface);
+  font-size: 20px;
+  display: grid;
+  place-items: center;
+}
+
+.icon-btn:hover {
+  background: var(--surface2);
+}
+
+.container {
+  max-width: 1000px;
+  margin: auto;
+  padding: 45px 22px 80px;
+}
+
+.hero {
+  padding: 45px 0 38px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 35px;
+}
+
+.eyebrow {
+  color: var(--accent);
+  font-size: 13px;
+  letter-spacing: .4px;
+  margin-bottom: 15px;
+}
+
+.hero h1 {
+  font-size: clamp(27px, 5vw, 43px);
+  font-weight: 600;
+  line-height: 1.5;
+  margin-bottom: 14px;
+}
+
+.hero p {
+  color: var(--muted);
+  font-size: 16px;
+  max-width: 650px;
+}
+
+.stats {
+  display: flex;
+  gap: 35px;
+  margin-top: 28px;
+}
+
+.stat strong {
+  display: block;
+  font-size: 27px;
+  color: var(--accent);
+}
+
+.stat span {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.section-heading {
+  font-size: 21px;
+  font-weight: 600;
+  margin-bottom: 18px;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  padding: 0 15px;
+  margin-bottom: 22px;
+}
+
+.search-box input {
+  width: 100%;
+  padding: 15px 0;
+  border: none;
+  outline: none;
+  color: var(--text);
+  background: transparent;
+  font-size: 15px;
+}
+
+.search-box span {
+  color: var(--muted);
+  font-size: 19px;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin-bottom: 22px;
+}
+
+.filter-btn {
+  padding: 7px 15px;
+  border: 1px solid var(--border);
+  border-radius: 30px;
+  background: var(--surface);
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.filter-btn.active {
+  background: var(--accent);
+  color: white;
+  border-color: var(--accent);
+}
+
+.article-list {
+  display: grid;
+  gap: 13px;
+}
+
+.article-card {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 21px 23px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: var(--text);
+  box-shadow: var(--shadow);
+  transition: transform .2s, border-color .2s;
+}
+
+.article-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent);
+}
+
+.article-card h3 {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.7;
+  margin-bottom: 8px;
+}
+
+.article-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.article-description {
+  color: var(--muted);
+  font-size: 14px;
+  margin-top: 9px;
+}
+
+.read-label {
+  display: block;
+  margin-top: 13px;
+  color: var(--accent);
+  font-size: 13px;
+}
+
+.empty {
+  text-align: center;
+  color: var(--muted);
+  padding: 45px 10px;
+}
+
+/* Article reading page */
+
+#reader {
+  display: none;
+}
+
+.reader-top {
+  margin-bottom: 28px;
+}
+
+.back-link {
+  border: none;
+  background: transparent;
+  color: var(--accent);
+  font-size: 14px;
+  padding: 8px 0;
+}
+
+.reader-title {
+  font-size: clamp(25px, 4vw, 36px);
+  font-weight: 600;
+  line-height: 1.7;
+  margin: 15px 0;
+}
+
+.reader-meta {
+  color: var(--muted);
+  font-size: 13px;
+  margin-bottom: 25px;
+}
+
+.reader-body {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: clamp(20px, 5vw, 48px);
+  font-size: 17px;
+  line-height: 2.25;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  text-align: justify;
+}
+
+.reader-body p {
+  margin-bottom: 18px;
+}
+
+.references {
+  margin-top: 30px;
+  padding: 20px;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 14px;
+  white-space: pre-wrap;
+}
+
+/* Side menu */
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.45);
+  z-index: 20;
+  display: none;
+}
+
+.overlay.show {
+  display: block;
+}
+
+.drawer {
+  position: fixed;
+  z-index: 21;
+  top: 0;
+  right: 0;
+  width: min(370px, 88vw);
+  height: 100dvh;
+  background: var(--surface);
+  padding: 25px;
+  transform: translateX(105%);
+  transition: transform .3s ease;
+  overflow-y: auto;
+  box-shadow: var(--shadow);
+}
+
+.drawer.show {
+  transform: translateX(0);
+}
+
+.drawer-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.drawer-head h2 {
+  font-size: 19px;
+}
+
+.drawer-link {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--border);
+  padding: 13px 2px;
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.drawer-link:hover {
+  color: var(--accent);
+}
+
+.drawer-number {
+  color: var(--accent);
+  margin-right: 8px;
+}
+
+/* Footer */
+
+footer {
+  text-align: center;
+  padding: 25px 15px;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 12px;
+}
+
+@media(max-width:600px) {
+  .navbar {
+    padding: 10px 14px;
+  }
+
+  .brand {
+    font-size: 12px;
+  }
+
+  .container {
+    padding: 25px 16px 55px;
+  }
+
+  .hero {
+    padding: 30px 0;
+  }
+
+  .stats {
+    gap: 22px;
+  }
+
+  .article-card {
+    padding: 17px;
+  }
+
+  .article-card h3 {
+    font-size: 16px;
+  }
+
+  .reader-body {
+    font-size: 16px;
+    text-align: left;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <nav class="navbar">
+
+    <div class="nav-left">
+      <button class="icon-btn" onclick="goBack()"
+        aria-label="वापस जाएँ">←</button>
+
+      <div class="brand">
+  डॉ. राजेश सरकार
+  <span style="
+    display:block;
+    color:var(--muted);
+    font-size:10px;
+    font-weight:400;
+    line-height:1.5;
+  ">
+    समग्र लेख-संग्रह
+  </span>
+</div>
+    </div>
+
+    <div class="nav-right">
+      <button class="icon-btn" onclick="toggleTheme()"
+        id="themeButton" aria-label="थीम बदलें">☾</button>
+
+      <button class="icon-btn" onclick="openMenu()"
+        aria-label="मेन्यू खोलें">☰</button>
+    </div>
+
+  </nav>
+</header>
+
+<main class="container">
+
+  <!-- HOME PAGE -->
+  <section id="home">
+
+    <div class="hero">
+      <div class="eyebrow">शोध · साहित्य · अकादमिक लेखन</div>
+
+      <h1>डॉ. राजेश सरकार<br>समग्र लेख-संग्रह</h1>
+
+      <p>
+        डॉ. राजेश सरकार के प्रकाशित लेखों, शोधपत्रों एवं
+        अकादमिक रचनाओं का एक सुव्यवस्थित डिजिटल संकलन।
+      </p>
+
+      <div class="stats">
+        <div class="stat">
+          <strong id="totalArticles">0</strong>
+          <span>कुल लेख</span>
+        </div>
+
+        <div class="stat">
+          <strong id="totalCategories">0</strong>
+          <span>विषय-वर्ग</span>
+        </div>
+      </div>
+    </div>
+
+    <section>
+      <h2 class="section-heading">प्रकाशित लेख</h2>
+
+      <div class="search-box">
+        <span>⌕</span>
+        <input id="searchInput"
+          type="search"
+          placeholder="लेख का शीर्षक या विषय खोजें..."
+          oninput="renderArticles()">
+      </div>
+
+      <div class="filters" id="filters"></div>
+
+      <div class="article-list" id="articleList"></div>
+    </section>
+
+  </section>
+
+  <!-- ARTICLE READER -->
+  <section id="reader">
+
+    <div class="reader-top">
+      <button class="back-link" onclick="showHome()">
+        ← सभी लेखों पर वापस जाएँ
+      </button>
+    </div>
+
+    <div class="eyebrow" id="readerCategory"></div>
+
+    <h1 class="reader-title" id="readerTitle"></h1>
+
+    <div class="reader-meta" id="readerMeta"></div>
+
+    <article class="reader-body" id="readerBody"></article>
+
+    <div class="references" id="readerReferences"></div>
+
+  </section>
+
+</main>
+
+<footer>
+  <div>डॉ. राजेश सरकार : समग्र लेख-संग्रह</div>
+  <div style="margin-top:5px">
+    एक डिजिटल अकादमिक संकलन
+  </div>
+</footer>
+
+<!-- SIDE MENU -->
+<div class="overlay" id="overlay" onclick="closeMenu()"></div>
+
+<aside class="drawer" id="drawer">
+
+  <div class="drawer-head">
+    <h2>सभी प्रकाशित लेख</h2>
+    <button class="icon-btn" onclick="closeMenu()">×</button>
+  </div>
+
+  <div id="drawerArticles"></div>
+
+</aside>
+
+<!-- LOAD ARTICLE DATA FIRST -->
+<script src="articles.js"></script>
+
+<script>
+
+// Application state
+let activeCategory = "सभी";
+let currentArticle = null;
+
+// Theme settings
+function toggleTheme() {
+  const current =
+    document.documentElement.getAttribute("data-theme");
+
+  const next = current === "dark" ? "light" : "dark";
+
+  document.documentElement.setAttribute("data-theme", next);
+
+  localStorage.setItem("archive-theme", next);
+
+  document.getElementById("themeButton").textContent =
+    next === "dark" ? "☀" : "☾";
+}
+
+// Restore theme
+(function() {
+  const saved = localStorage.getItem("archive-theme") || "light";
+
+  document.documentElement.setAttribute("data-theme", saved);
+
+  document.getElementById("themeButton").textContent =
+    saved === "dark" ? "☀" : "☾";
+})();
+
+// Validate article database
+const database =
+  Array.isArray(window.articles) ? window.articles : [];
+
+function getCategories() {
+  return [...new Set(database.map(a => a.category || "अन्य"))];
+}
+
+// Render category filters
+function renderFilters() {
+  const container = document.getElementById("filters");
+  container.innerHTML = "";
+
+  ["सभी", ...getCategories()].forEach(category => {
+    const button = document.createElement("button");
+
+    button.className =
+      "filter-btn" +
+      (activeCategory === category ? " active" : "");
+
+    button.textContent = category;
+
+    button.onclick = () => {
+      activeCategory = category;
+      renderFilters();
+      renderArticles();
+    };
+
+    container.appendChild(button);
+  });
+}
+
+// Render article list
+function renderArticles() {
+  const container = document.getElementById("articleList");
+
+  const query = document
+    .getElementById("searchInput")
+    .value.trim().toLowerCase();
+
+  container.innerHTML = "";
+
+  const filtered = database.filter(article => {
+    const matchesCategory =
+      activeCategory === "सभी" ||
+      (article.category || "अन्य") === activeCategory;
+
+    const searchable = [
+      article.title,
+      article.category,
+      article.year,
+      article.description
+    ].join(" ").toLowerCase();
+
+    return matchesCategory && searchable.includes(query);
+  });
+
+  if (filtered.length === 0) {
+    container.innerHTML =
+      '<div class="empty">कोई लेख नहीं मिला।</div>';
+    return;
+  }
+
+  filtered.forEach(article => {
+    const card = document.createElement("button");
+
+    card.className = "article-card";
+    card.type = "button";
+
+    const title = document.createElement("h3");
+    title.textContent = article.title;
+
+    const meta = document.createElement("div");
+    meta.className = "article-meta";
+
+    [article.category, article.year, article.journal]
+      .filter(Boolean)
+      .forEach(value => {
+        const span = document.createElement("span");
+        span.textContent = value;
+        meta.appendChild(span);
+      });
+
+    card.appendChild(title);
+    card.appendChild(meta);
+
+    if (article.description) {
+      const description = document.createElement("p");
+      description.className = "article-description";
+      description.textContent = article.description;
+      card.appendChild(description);
+    }
+
+    const read = document.createElement("span");
+    read.className = "read-label";
+    read.textContent = "लेख पढ़ें →";
+
+    card.appendChild(read);
+
+    card.onclick = () => openArticle(article.id);
+
+    container.appendChild(card);
+  });
+}
+
+// Open individual article
+function openArticle(id) {
+  const article = database.find(a => a.id === id);
+
+  if (!article) return;
+
+  currentArticle = article;
+
+  document.getElementById("home").style.display = "none";
+  document.getElementById("reader").style.display = "block";
+
+  document.getElementById("readerCategory").textContent =
+    article.category || "प्रकाशित लेख";
+
+  document.getElementById("readerTitle").textContent =
+    article.title;
+
+  document.getElementById("readerMeta").textContent =
+    [article.year, article.journal, article.author]
+      .filter(Boolean).join(" · ");
+
+  // Plain text rendering protects article content from HTML injection.
+  const body = document.getElementById("readerBody");
+  body.textContent = article.content || "लेख की सामग्री उपलब्ध नहीं है।";
+
+  const references =
+    document.getElementById("readerReferences");
+
+  if (article.references) {
+    references.style.display = "block";
+    references.textContent =
+      "संदर्भ एवं टिप्पणियाँ\n\n" + article.references;
+  } else {
+    references.style.display = "none";
+    references.textContent = "";
+  }
+
+  closeMenu();
+  window.scrollTo({top: 0, behavior: "instant"});
+
+  history.pushState({articleId: id}, "");
+}
+
+// Return to homepage
+function showHome() {
+  document.getElementById("reader").style.display = "none";
+  document.getElementById("home").style.display = "block";
+
+  currentArticle = null;
+
+  window.scrollTo({top: 0, behavior: "instant"});
+}
+
+// Back button support
+function goBack() {
+  if (currentArticle && history.state?.articleId) {
+    history.back();
+  } else {
+    showHome();
+  }
+}
+
+window.addEventListener("popstate", () => {
+  showHome();
+});
+
+// Side navigation
+function openMenu() {
+  document.getElementById("drawer").classList.add("show");
+  document.getElementById("overlay").classList.add("show");
+}
+
+function closeMenu() {
+  document.getElementById("drawer").classList.remove("show");
+  document.getElementById("overlay").classList.remove("show");
+}
+
+// Render hamburger article directory
+function renderDrawer() {
+  const container =
+    document.getElementById("drawerArticles");
+
+  container.innerHTML = "";
+
+  database.forEach((article, index) => {
+    const button = document.createElement("button");
+
+    button.className = "drawer-link";
+
+    const number = document.createElement("span");
+    number.className = "drawer-number";
+    number.textContent = String(index + 1).padStart(2, "0") + ".";
+
+    button.appendChild(number);
+    button.appendChild(
+      document.createTextNode(article.title)
+    );
+
+    button.onclick = () => openArticle(article.id);
+
+    container.appendChild(button);
+  });
+
+  if (database.length === 0) {
+    container.textContent = "अभी कोई लेख उपलब्ध नहीं है।";
+  }
+}
+
+// Initialize application
+document.getElementById("totalArticles").textContent =
+  database.length;
+
+document.getElementById("totalCategories").textContent =
+  getCategories().length;
+
+renderFilters();
+renderArticles();
+renderDrawer();
+
+</script>
+
+</body>
+</html>

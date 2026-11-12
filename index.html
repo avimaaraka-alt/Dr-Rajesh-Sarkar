@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="hi">
 <head>
@@ -8,10 +7,13 @@
 
 <title>डॉ. राजेश सरकार : समग्र लेख-संग्रह</title>
 
-<!-- Devanagari typography -->
+<!-- Inline PWA Manifest -->
+<link rel="manifest" id="pwa-manifest">
+
+<!-- Devanagari & Bengali Typography -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Bengali:wght@400;500;600;700&family=Noto+Serif+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
 :root {
@@ -23,6 +25,7 @@
   --accent: #80643d;
   --border: #e3ddd2;
   --shadow: 0 8px 30px rgba(50,40,25,.06);
+  --reader-font-size: 17px;
 }
 
 [data-theme="dark"] {
@@ -45,7 +48,7 @@
 body {
   background: var(--bg);
   color: var(--text);
-  font-family: 'Noto Serif Devanagari', serif;
+  font-family: 'Noto Serif Devanagari', 'Noto Serif Bengali', serif;
   line-height: 1.9;
   transition: background .25s, color .25s;
 }
@@ -73,35 +76,91 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
+  gap: 10px;
 }
 
 .nav-left, .nav-right {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
 }
 
 .brand {
   font-size: 15px;
   font-weight: 600;
-  line-height: 1.6;
+  line-height: 1.5;
+}
+
+.brand-sub {
+  display: block;
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 1.4;
 }
 
 .icon-btn {
-  width: 42px;
-  height: 42px;
+  width: 38px;
+  height: 38px;
   border: 1px solid var(--border);
   border-radius: 50%;
   color: var(--text);
   background: var(--surface);
-  font-size: 20px;
+  font-size: 16px;
   display: grid;
   place-items: center;
+  transition: background .2s, border-color .2s;
 }
 
 .icon-btn:hover {
   background: var(--surface2);
+  border-color: var(--accent);
+}
+
+.font-controls {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  overflow: hidden;
+  background: var(--surface);
+}
+
+.font-btn {
+  border: none;
+  background: transparent;
+  color: var(--text);
+  padding: 6px 11px;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.font-btn:hover {
+  background: var(--surface2);
+}
+
+.font-divider {
+  width: 1px;
+  height: 18px;
+  background: var(--border);
+}
+
+.install-btn {
+  display: none;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 13px;
+  border: 1px solid var(--accent);
+  border-radius: 20px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.install-btn:hover {
+  opacity: 0.92;
 }
 
 .container {
@@ -111,7 +170,7 @@ header {
 }
 
 .hero {
-  padding: 45px 0 38px;
+  padding: 40px 0 35px;
   border-bottom: 1px solid var(--border);
   margin-bottom: 35px;
 }
@@ -271,7 +330,7 @@ header {
 }
 
 .reader-top {
-  margin-bottom: 28px;
+  margin-bottom: 24px;
 }
 
 .back-link {
@@ -283,41 +342,85 @@ header {
 }
 
 .reader-title {
-  font-size: clamp(25px, 4vw, 36px);
+  font-size: clamp(24px, 4vw, 35px);
   font-weight: 600;
-  line-height: 1.7;
-  margin: 15px 0;
+  line-height: 1.65;
+  margin: 12px 0;
 }
 
 .reader-meta {
   color: var(--muted);
   font-size: 13px;
-  margin-bottom: 25px;
+  margin-bottom: 24px;
 }
 
 .reader-body {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 10px;
-  padding: clamp(20px, 5vw, 48px);
-  font-size: 17px;
-  line-height: 2.25;
-  white-space: pre-wrap;
+  padding: clamp(22px, 5vw, 52px);
+  font-size: var(--reader-font-size);
+  line-height: 2.15;
   overflow-wrap: anywhere;
   text-align: justify;
 }
 
 .reader-body p {
-  margin-bottom: 18px;
+  margin-bottom: 1.25em;
+  text-indent: 1.5em;
+}
+
+.reader-body p.shloka {
+  text-indent: 0;
+  text-align: left;
+  margin: 1.3em 0;
+  padding: 12px 18px;
+  border-left: 3px solid var(--accent);
+  background: var(--surface2);
+  border-radius: 0 6px 6px 0;
+  font-weight: 500;
+  line-height: 1.95;
+  white-space: pre-line;
+}
+
+.reader-body p.subhead {
+  text-indent: 0;
+  font-weight: 600;
+  color: var(--accent);
+  margin-top: 1.6em;
+  margin-bottom: 0.6em;
 }
 
 .references {
   margin-top: 30px;
-  padding: 20px;
-  border-top: 1px solid var(--border);
+  padding: 24px 28px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
   color: var(--muted);
-  font-size: 14px;
-  white-space: pre-wrap;
+  font-size: calc(var(--reader-font-size) - 2px);
+  line-height: 1.9;
+}
+
+.references h3 {
+  color: var(--text);
+  font-size: 1.1em;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+.references ol {
+  padding-left: 22px;
+}
+
+.references li {
+  margin-bottom: 8px;
+}
+
+/* Script-specific rendering */
+.lang-bn {
+  font-family: 'Noto Serif Bengali', serif !important;
 }
 
 /* Side menu */
@@ -396,13 +499,34 @@ footer {
   font-size: 12px;
 }
 
-@media(max-width:600px) {
+@media(max-width:650px) {
   .navbar {
-    padding: 10px 14px;
+    padding: 10px 12px;
+    gap: 6px;
   }
 
   .brand {
     font-size: 12px;
+  }
+
+  .brand-sub {
+    display: none;
+  }
+
+  .icon-btn {
+    width: 34px;
+    height: 34px;
+    font-size: 14px;
+  }
+
+  .font-btn {
+    padding: 5px 8px;
+    font-size: 12px;
+  }
+
+  .install-btn {
+    padding: 5px 9px;
+    font-size: 11px;
   }
 
   .container {
@@ -410,7 +534,7 @@ footer {
   }
 
   .hero {
-    padding: 30px 0;
+    padding: 25px 0;
   }
 
   .stats {
@@ -426,8 +550,11 @@ footer {
   }
 
   .reader-body {
-    font-size: 16px;
     text-align: left;
+  }
+
+  .reader-body p {
+    text-indent: 1em;
   }
 }
 </style>
@@ -439,29 +566,35 @@ footer {
   <nav class="navbar">
 
     <div class="nav-left">
-      <button class="icon-btn" onclick="goBack()"
-        aria-label="वापस जाएँ">←</button>
+      <button class="icon-btn" onclick="goBack()" aria-label="वापस जाएँ" title="वापस जाएँ">←</button>
 
       <div class="brand">
-  डॉ. राजेश सरकार
-  <span style="
-    display:block;
-    color:var(--muted);
-    font-size:10px;
-    font-weight:400;
-    line-height:1.5;
-  ">
-    समग्र लेख-संग्रह
-  </span>
-</div>
+        डॉ. राजेश सरकार
+        <span class="brand-sub">समग्र लेख-संग्रह</span>
+      </div>
     </div>
 
     <div class="nav-right">
-      <button class="icon-btn" onclick="toggleTheme()"
-        id="themeButton" aria-label="थीम बदलें">☾</button>
+      <!-- PWA Install Button -->
+      <button class="install-btn" id="installBtn" onclick="installPWA()" title="ऐप इंस्टॉल करें">
+        ↓ इंस्टॉल
+      </button>
 
-      <button class="icon-btn" onclick="openMenu()"
-        aria-label="मेन्यू खोलें">☰</button>
+      <!-- Font Size Controls -->
+      <div class="font-controls" role="group" aria-label="फ़ॉन्ट आकार">
+        <button class="font-btn" onclick="changeFontSize(-1)" title="अक्षर छोटा करें">अ-</button>
+        <div class="font-divider"></div>
+        <button class="font-btn" onclick="changeFontSize(1)" title="अक्षर बड़ा करें">अ+</button>
+      </div>
+
+      <!-- Fullscreen Toggle -->
+      <button class="icon-btn" onclick="toggleFullscreen()" id="fullscreenBtn" aria-label="फुल स्क्रीन" title="फुल स्क्रीन">⛶</button>
+
+      <!-- Theme Toggle -->
+      <button class="icon-btn" onclick="toggleTheme()" id="themeButton" aria-label="थीम बदलें" title="थीम बदलें">☾</button>
+
+      <!-- Drawer Menu -->
+      <button class="icon-btn" onclick="openMenu()" aria-label="मेन्यू खोलें" title="मेन्यू खोलें">☰</button>
     </div>
 
   </nav>
@@ -561,39 +694,100 @@ footer {
 <script src="articles.js"></script>
 
 <script>
-
 // Application state
 let activeCategory = "सभी";
 let currentArticle = null;
+let currentFontSize = parseInt(localStorage.getItem("archive-font-size"), 10) || 17;
+let deferredPrompt = null;
+
+// Apply initial font size
+document.documentElement.style.setProperty("--reader-font-size", currentFontSize + "px");
+
+// Font Increase / Decrease
+function changeFontSize(delta) {
+  currentFontSize = Math.min(26, Math.max(14, currentFontSize + delta));
+  document.documentElement.style.setProperty("--reader-font-size", currentFontSize + "px");
+  localStorage.setItem("archive-font-size", currentFontSize);
+}
+
+// Fullscreen Mode
+function toggleFullscreen() {
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen().catch(() => {});
+  } else {
+    document.exitFullscreen().catch(() => {});
+  }
+}
+
+document.addEventListener("fullscreenchange", () => {
+  const btn = document.getElementById("fullscreenBtn");
+  btn.textContent = document.fullscreenElement ? "✕" : "⛶";
+});
+
+// PWA Manifest & Install Prompt
+(function setupPWA() {
+  const iconSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192"><rect width="192" height="192" rx="36" fill="#80643d"/><text x="96" y="122" font-size="92" text-anchor="middle" fill="#fffefa" font-family="serif">ग्र</text></svg>`;
+  const iconUrl = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(iconSvg);
+
+  const manifest = {
+    name: "डॉ. राजेश सरकार : समग्र लेख-संग्रह",
+    short_name: "लेख-संग्रह",
+    start_url: location.href,
+    display: "standalone",
+    background_color: "#f6f3ed",
+    theme_color: "#80643d",
+    icons: [
+      { src: iconUrl, sizes: "192x192", type: "image/svg+xml" },
+      { src: iconUrl, sizes: "512x512", type: "image/svg+xml" }
+    ]
+  };
+
+  const manifestBlob = new Blob([JSON.stringify(manifest)], { type: "application/manifest+json" });
+  document.getElementById("pwa-manifest").href = URL.createObjectURL(manifestBlob);
+
+  window.addEventListener("beforeinstallprompt", (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    document.getElementById("installBtn").style.display = "inline-flex";
+  });
+
+  window.addEventListener("appinstalled", () => {
+    deferredPrompt = null;
+    document.getElementById("installBtn").style.display = "none";
+  });
+})();
+
+async function installPWA() {
+  if (!deferredPrompt) return;
+  deferredPrompt.prompt();
+  await deferredPrompt.userChoice;
+  deferredPrompt = null;
+  document.getElementById("installBtn").style.display = "none";
+}
 
 // Theme settings
 function toggleTheme() {
-  const current =
-    document.documentElement.getAttribute("data-theme");
-
+  const current = document.documentElement.getAttribute("data-theme");
   const next = current === "dark" ? "light" : "dark";
-
   document.documentElement.setAttribute("data-theme", next);
-
   localStorage.setItem("archive-theme", next);
-
-  document.getElementById("themeButton").textContent =
-    next === "dark" ? "☀" : "☾";
+  document.getElementById("themeButton").textContent = next === "dark" ? "☀" : "☾";
 }
 
 // Restore theme
 (function() {
   const saved = localStorage.getItem("archive-theme") || "light";
-
   document.documentElement.setAttribute("data-theme", saved);
-
-  document.getElementById("themeButton").textContent =
-    saved === "dark" ? "☀" : "☾";
+  document.getElementById("themeButton").textContent = saved === "dark" ? "☀" : "☾";
 })();
 
+// Detect Bangla script for proper font rendering
+function isBanglaText(text) {
+  return /[\u0980-\u09FF]/.test(text || "");
+}
+
 // Validate article database
-const database =
-  Array.isArray(window.articles) ? window.articles : [];
+const database = Array.isArray(window.articles) ? window.articles : [];
 
 function getCategories() {
   return [...new Set(database.map(a => a.category || "अन्य"))];
@@ -606,11 +800,7 @@ function renderFilters() {
 
   ["सभी", ...getCategories()].forEach(category => {
     const button = document.createElement("button");
-
-    button.className =
-      "filter-btn" +
-      (activeCategory === category ? " active" : "");
-
+    button.className = "filter-btn" + (activeCategory === category ? " active" : "");
     button.textContent = category;
 
     button.onclick = () => {
@@ -626,10 +816,7 @@ function renderFilters() {
 // Render article list
 function renderArticles() {
   const container = document.getElementById("articleList");
-
-  const query = document
-    .getElementById("searchInput")
-    .value.trim().toLowerCase();
+  const query = document.getElementById("searchInput").value.trim().toLowerCase();
 
   container.innerHTML = "";
 
@@ -649,16 +836,18 @@ function renderArticles() {
   });
 
   if (filtered.length === 0) {
-    container.innerHTML =
-      '<div class="empty">कोई लेख नहीं मिला।</div>';
+    container.innerHTML = '<div class="empty">कोई लेख नहीं मिला।</div>';
     return;
   }
 
   filtered.forEach(article => {
     const card = document.createElement("button");
-
     card.className = "article-card";
     card.type = "button";
+
+    if (isBanglaText(article.title)) {
+      card.classList.add("lang-bn");
+    }
 
     const title = document.createElement("h3");
     title.textContent = article.title;
@@ -686,67 +875,99 @@ function renderArticles() {
 
     const read = document.createElement("span");
     read.className = "read-label";
-    read.textContent = "लेख पढ़ें →";
+    read.textContent = isBanglaText(article.title) ? "প্রবন্ধটি পড়ুন →" : "लेख पढ़ें →";
 
     card.appendChild(read);
-
     card.onclick = () => openArticle(article.id);
-
     container.appendChild(card);
+  });
+}
+
+// Format structured paragraphs & shlokas safely
+function renderFormattedContent(container, rawText) {
+  container.innerHTML = "";
+  if (!rawText) {
+    container.textContent = "लेख की सामग्री उपलब्ध नहीं है।";
+    return;
+  }
+
+  const blocks = rawText.trim().split(/\n\s*\n/);
+  blocks.forEach(block => {
+    const trimmed = block.trim();
+    if (!trimmed) return;
+
+    const p = document.createElement("p");
+    // Highlight multi-line verses/shlokas (ending with ।। or ॥)
+    if (trimmed.includes("॥") || trimmed.includes("।।")) {
+      p.className = "shloka";
+    }
+    p.textContent = trimmed;
+    container.appendChild(p);
   });
 }
 
 // Open individual article
 function openArticle(id) {
   const article = database.find(a => a.id === id);
-
   if (!article) return;
 
   currentArticle = article;
+  const isBn = article.lang === "bn" || isBanglaText(article.title);
 
   document.getElementById("home").style.display = "none";
-  document.getElementById("reader").style.display = "block";
+  const readerSection = document.getElementById("reader");
+  readerSection.style.display = "block";
+  readerSection.classList.toggle("lang-bn", isBn);
 
   document.getElementById("readerCategory").textContent =
-    article.category || "प्रकाशित लेख";
+    article.category || (isBn ? "প্রকাশিত প্রবন্ধ" : "प्रकाशित लेख");
 
-  document.getElementById("readerTitle").textContent =
-    article.title;
+  document.getElementById("readerTitle").textContent = article.title;
 
   document.getElementById("readerMeta").textContent =
     [article.year, article.journal, article.author]
       .filter(Boolean).join(" · ");
 
-  // Plain text rendering protects article content from HTML injection.
   const body = document.getElementById("readerBody");
-  body.textContent = article.content || "लेख की सामग्री उपलब्ध नहीं है।";
+  renderFormattedContent(body, article.content);
 
-  const references =
-    document.getElementById("readerReferences");
+  const references = document.getElementById("readerReferences");
+  references.innerHTML = "";
 
-  if (article.references) {
+  if (article.references && article.references.trim()) {
     references.style.display = "block";
-    references.textContent =
-      "संदर्भ एवं टिप्पणियाँ\n\n" + article.references;
+    const heading = document.createElement("h3");
+    heading.textContent = isBn ? "সহায়ক গ্রন্থপঞ্জি ও তথ্যসূত্র" : "संदर्भ एवं टिप्पणियाँ";
+    references.appendChild(heading);
+
+    const lines = article.references
+      .trim()
+      .split("\n")
+      .map(l => l.trim().replace(/^[\d০-৯]+[\.\-\)]\s*/, ""))
+      .filter(Boolean);
+
+    const ol = document.createElement("ol");
+    lines.forEach(line => {
+      const li = document.createElement("li");
+      li.textContent = line;
+      ol.appendChild(li);
+    });
+    references.appendChild(ol);
   } else {
     references.style.display = "none";
-    references.textContent = "";
   }
 
   closeMenu();
-  window.scrollTo({top: 0, behavior: "instant"});
-
-  history.pushState({articleId: id}, "");
+  window.scrollTo({ top: 0, behavior: "instant" });
+  history.pushState({ articleId: id }, "");
 }
 
 // Return to homepage
 function showHome() {
   document.getElementById("reader").style.display = "none";
   document.getElementById("home").style.display = "block";
-
   currentArticle = null;
-
-  window.scrollTo({top: 0, behavior: "instant"});
+  window.scrollTo({ top: 0, behavior: "instant" });
 }
 
 // Back button support
@@ -775,27 +996,23 @@ function closeMenu() {
 
 // Render hamburger article directory
 function renderDrawer() {
-  const container =
-    document.getElementById("drawerArticles");
-
+  const container = document.getElementById("drawerArticles");
   container.innerHTML = "";
 
   database.forEach((article, index) => {
     const button = document.createElement("button");
-
     button.className = "drawer-link";
+    if (isBanglaText(article.title)) {
+      button.classList.add("lang-bn");
+    }
 
     const number = document.createElement("span");
     number.className = "drawer-number";
     number.textContent = String(index + 1).padStart(2, "0") + ".";
 
     button.appendChild(number);
-    button.appendChild(
-      document.createTextNode(article.title)
-    );
-
+    button.appendChild(document.createTextNode(article.title));
     button.onclick = () => openArticle(article.id);
-
     container.appendChild(button);
   });
 
@@ -805,16 +1022,12 @@ function renderDrawer() {
 }
 
 // Initialize application
-document.getElementById("totalArticles").textContent =
-  database.length;
-
-document.getElementById("totalCategories").textContent =
-  getCategories().length;
+document.getElementById("totalArticles").textContent = database.length;
+document.getElementById("totalCategories").textContent = getCategories().length;
 
 renderFilters();
 renderArticles();
 renderDrawer();
-
 </script>
 
 </body>
